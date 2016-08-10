@@ -58,7 +58,10 @@ public class NodoA {
   if(postales.size() == 0){
     //System.out.print("No hay postales en este album... \n");
       postalesAlbumS = postalesAlbumS + "No hay postales en este album... \n";
-  }else{
+  }else if(postales.size() == album.getNumeroDePostales()){
+            postalesAlbumS = postalesAlbumS + "Felecidades has completado este album :D!!!!! \n";
+  }
+  if(postales.size() != 0){
   Iterator it = postales.iterator();
    //System.out.print("Las postales de este album son: \n");
   postalesAlbumS = postalesAlbumS + "Las postales de este album son: \n";
@@ -106,7 +109,7 @@ postalesFaltantesS =  postalesFaltantesS = "Las postales faltantes son: \n";
         }
           
   if (postalesFaltantes.size() == 0){
-       postalesFaltantesS =  postalesFaltantesS + "Lo lograste has completado este album!!!!";
+       postalesFaltantesS =  postalesFaltantesS + "\\033[34mLo lograste has completado este album!!!!";
   }
   else{
   Iterator itF = postalesFaltantes.iterator(); 
