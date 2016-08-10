@@ -5,8 +5,10 @@
  */
 package Window;
 
+import AlbumnesPostalesLogica.Album;
 import AlbumnesPostalesLogica.ListaAlbum;
-
+import javax.swing.JOptionPane;
+import javax.swing.*;
 /**
  *
  * @author Cristian
@@ -18,8 +20,16 @@ public class AlbumIG extends javax.swing.JFrame {
      */
     ListaAlbum la = new ListaAlbum();
     
+    
+    
     public AlbumIG() {
         initComponents();
+        Album al = new Album( "mundial 1998", 1, 50);
+        Album al1 = new Album( "mundial 2002", 2, 50);
+        Album al2 = new Album( "mundial 2006", 3, 50);
+        la.insertar(al);
+        la.insertar(al1);
+        la.insertar(al2);
         txtPrincipal.setText(la.mostrar());
     }
 
@@ -101,19 +111,48 @@ public class AlbumIG extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarAlbumActionPerformed
-        // TODO add your handling code here:
+       String id_aS = JOptionPane.showInputDialog( "Digite el id del album:" );
+       int id_a = Integer.parseInt(id_aS);
+       String nombreAlbum = JOptionPane.showInputDialog ("Escribe el nombre del album:"); 
+       String numPosS = JOptionPane.showInputDialog( "Digite el numero de postales del album:" );
+       int nuPos = Integer.parseInt(numPosS);
+       Album al = new Album( nombreAlbum, id_a, nuPos);
+       la.insertar(al);
+       txtPrincipal.setText(la.mostrar());
     }//GEN-LAST:event_btnAgregarAlbumActionPerformed
 
     private void btnAgregarPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarPostalActionPerformed
         // TODO add your handling code here:
+       String id_aS = JOptionPane.showInputDialog( "Digite el id del album, en el que desea agregar una postal:" );
+       int id_a = Integer.parseInt(id_aS);
+       String numPosS = JOptionPane.showInputDialog( "Digite el numero de postal que desea agregar:" );
+       int nuPos = Integer.parseInt(numPosS);
+       if(la.insertarPostal(id_a, nuPos) == true){
+           JOptionPane.showMessageDialog(null, "La postal se agrego con exito");
+       }
+       else{
+           JOptionPane.showMessageDialog(null, "El album no existe, o la postal es un numero invalido, intente de nuevo!!");
+       }
+       
+       txtPrincipal.setText(la.mostrar());
     }//GEN-LAST:event_btnAgregarPostalActionPerformed
 
     private void btnVenderPostalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderPostalActionPerformed
         // TODO add your handling code here:
+         String id_aS = JOptionPane.showInputDialog( "Digite el id del album, en el que desea vender una postal:" );
+       int id_a = Integer.parseInt(id_aS);
+       String numPosS = JOptionPane.showInputDialog( "Digite el numero de postal que desea vender:" );
+       int nuPos = Integer.parseInt(numPosS);
+       if(la.VenderPostal(id_a, nuPos) == true)
+           JOptionPane.showMessageDialog(this, "La postal se vendio con exito!!");
+       else
+           JOptionPane.showMessageDialog(this, "El identificador del album es incorrecto, o no tienes esa postal repetida, intentalo de nuevo....");
+       txtPrincipal.setText(la.mostrar());
     }//GEN-LAST:event_btnVenderPostalActionPerformed
 
     private void btnVerAlbumActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerAlbumActionPerformed
         // TODO add your handling code here:
+        txtPrincipal.setText(la.mostrar());
     }//GEN-LAST:event_btnVerAlbumActionPerformed
 
     /**

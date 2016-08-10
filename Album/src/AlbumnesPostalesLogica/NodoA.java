@@ -48,16 +48,16 @@ public class NodoA {
     }
 
   public String mostrarPostales(){
-     
+   int espacios = 0;
    String postalesAlbumS = "";   
    String postalesRepetidasS= "";  
-   String postalesFatantesS = "";  
+   String postalesFaltantesS = "";  
    String totalS = "";  
              
    
   if(postales.size() == 0){
     //System.out.print("No hay postales en este album... \n");
-      postalesAlbumS = "No hay postales en este album... \n";
+      postalesAlbumS = postalesAlbumS + "No hay postales en este album... \n";
   }else{
   Iterator it = postales.iterator();
    //System.out.print("Las postales de este album son: \n");
@@ -65,9 +65,16 @@ public class NodoA {
       while (it.hasNext()) {
           //System.out.print(" - " + it.next());
           postalesAlbumS =  postalesAlbumS + " - " + it.next();
+          if (espacios == 10){
+              postalesAlbumS  =  postalesAlbumS + "\n";  
+              espacios = 0;
+          }else{
+              espacios ++;
+          }
       }
   }
-   postalesAlbumS =  postalesAlbumS + "\n";
+   postalesAlbumS =  postalesAlbumS + "\n"+ "\n";
+   espacios = 0;
   
   if(postalesRepetidas.size() == 0){
     //System.out.print("No hay postales repetidas en este album... \n");
@@ -79,43 +86,65 @@ public class NodoA {
       while (itR.hasNext()) {
           //System.out.print( " - " + itR.next());
           postalesRepetidasS = postalesRepetidasS + " - " + itR.next();
-          
+          if (espacios == 10){
+              postalesRepetidasS  =  postalesRepetidasS + "\n";  
+              espacios = 0;
+          }else{
+              espacios ++;
+          }
       }
   }
-   postalesRepetidasS = postalesRepetidasS + "\n"; 
-
+   postalesRepetidasS = postalesRepetidasS + "\n"+ "\n"; 
+   espacios = 0; 
    
   //System.out.print("Las postales faltantes son: \n" );
-postalesFatantesS =  postalesFatantesS = "Las postales faltantes son: \n";
+postalesFaltantesS =  postalesFaltantesS = "Las postales faltantes son: \n";
     for (int i = 1; i <= album.getNumeroDePostales(); i++) {
          if(postales.contains(i) == false){
             postalesFaltantes.add(i);
             }
         }
           
-      
+  if (postalesFaltantes.size() == 0){
+       postalesFaltantesS =  postalesFaltantesS + "Lo lograste has completado este album!!!!";
+  }
+  else{
   Iterator itF = postalesFaltantes.iterator(); 
       while (itF.hasNext()) {
           //System.out.print( " - " + itF.next());
-          postalesFatantesS =  postalesFatantesS = " - " + itF.next();
+          postalesFaltantesS =  postalesFaltantesS + " - " + itF.next();
+          if (espacios == 10){
+              postalesFaltantesS  =  postalesFaltantesS + "\n";  
+              espacios = 0;
+          }else{
+              espacios ++;
+          }
       }
-      
-      System.out.print("\n");
-      totalS =postalesAlbumS + postalesRepetidasS + postalesFatantesS;
+  }
+      //System.out.print("\n");
+      postalesFaltantesS =  postalesFaltantesS + "\n"+"\n" ;
+      totalS = postalesAlbumS + postalesRepetidasS + postalesFaltantesS + "-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*-*"+"\n"+"\n";
+      postalesFaltantes.clear();
+      espacios = 0;
+      //System.out.print( postalesAlbumS + postalesRepetidasS + postalesFaltantesS);
       return totalS;
   }
   
   
   
-  public void añadirPostal(int numeroPostal){
-  if(postales.contains(numeroPostal) == true){
-      postalesRepetidas.add(numeroPostal);
-  }else if(numeroPostal > album.getNumeroDePostales()){
-            System.out.print("numero de postal invalida: " + numeroPostal + "\n");
-  }else 
+  public boolean añadirPostal(int numeroPostal){
+  if(numeroPostal > album.getNumeroDePostales()){
+      return false;
+  }else if(postales.contains(numeroPostal) == true){
+            postalesRepetidas.add(numeroPostal);
+            Collections.sort(postales); //para ordenar el arraylist de postales
+            Collections.sort(postalesRepetidas); //para ordenar el arraylist de postales repetidas
+            return true;
+  }else {
        postales.add(numeroPostal);
        Collections.sort(postales); //para ordenar el arraylist de postales
        Collections.sort(postalesRepetidas); //para ordenar el arraylist de postales repetidas
-  
+       return true;
+  }
   }
 }

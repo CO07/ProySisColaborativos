@@ -84,7 +84,8 @@ public class ListaAlbum {
   String album = "";
   NodoA iterador = primero;
   if(EstaVacio()){
-   System.out.print("No hay almbunes por coleccionar ;(");
+   //System.out.print("No hay almbunes por coleccionar ;(");
+      album =  album + "No hay almbunes por coleccionar ;(";
   }
   while (iterador != null){
       //System.out.print("\n" + iterador.getAlbum().getId() + " - " + iterador.getAlbum().getNombre()+ "\n");
